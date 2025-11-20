@@ -1,0 +1,440 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Drishti Manghnani - Portfolio</title>
+  <style>
+    /* Reset and base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0; padding: 0;
+      font-family: 'Georgia', serif;
+      background-color: #fff; /* White background */
+      color: #000; /* Black text */
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a {
+      color: #ff6600; /* Bright orange link */
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover, a:focus {
+      color: #0077ff; /* Bright blue hover */
+      outline: none;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto 80px;
+      padding: 0 20px;
+    }
+
+    /* Intro Section */
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    header.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    header h1 {
+      font-weight: 900;
+      font-size: 3.75rem;
+      line-height: 1.1;
+      margin: 0;
+      letter-spacing: -0.02em;
+      max-width: 650px;
+    }
+    header p.quote {
+      font-style: italic;
+      font-family: Georgia, serif;
+      font-size: 1.3rem;
+      color: #555;
+      margin: 20px 0 70px 0;
+      max-width: 600px;
+      line-height: 1.4;
+      user-select: none;
+    }
+    header img.profile-pic {
+      width: 280px;
+      max-width: 80vw;
+      height: auto;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      transition: filter 0.4s ease, box-shadow 0.4s ease;
+      border: 8px solid #0077ff; /* Blue border */
+    }
+    header img.profile-pic:hover {
+      filter: grayscale(0);
+      box-shadow: 0 0 40px #ff6600;
+      border-color: #ff6600; /* Orange border on hover */
+      cursor: pointer;
+    }
+
+    /* Section headings */
+    section h2 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      text-align: center;
+      color: #0077ff; /* Blue heading */
+      border-bottom: 4px solid #ff6600; /* Orange underline */
+      padding-bottom: 8px;
+      margin-bottom: 40px;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: color 0.3s ease, border-color 0.3s ease;
+      cursor: default;
+    }
+    section h2:hover {
+      color: #ff6600;
+      border-color: #0077ff;
+    }
+
+    /* Fade-in sections */
+    section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease, transform 1s ease;
+      margin-bottom: 70px;
+      padding: 0 15px;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* About Me */
+    #about p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.65;
+      color: #222;
+    }
+
+    /* Skills */
+    #skills ul {
+      list-style: none;
+      padding: 0;
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 22px;
+    }
+    #skills li {
+      background: linear-gradient(135deg, #ff6600, #ff9900);
+      color: white;
+      padding: 14px 26px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-family: Arial, sans-serif;
+      box-shadow: 0 8px 15px rgba(255, 102, 0, 0.4);
+      user-select: none;
+      transition: all 0.3s ease;
+      cursor: default;
+      white-space: nowrap;
+      font-size: 1rem;
+    }
+    #skills li:nth-child(2n) {
+      background: linear-gradient(135deg, #005fff, #3a7dff);
+      box-shadow: 0 8px 20px rgba(0, 95, 255, 0.5);
+      color: #fff;
+    }
+    #skills li:hover {
+      filter: brightness(1.15);
+      transform: scale(1.1);
+      box-shadow: 0 12px 30px rgba(255, 153, 0, 0.7);
+    }
+
+    /* Projects */
+    #projects .project-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    #projects .project {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      background-color: #fff;
+      transition: box-shadow 0.4s ease, transform 0.4s ease;
+      cursor: pointer;
+      border: 3px solid transparent;
+    }
+    #projects .project:hover {
+      box-shadow: 0 12px 40px rgba(255, 102, 0, 0.6);
+      border-color: #ff6600;
+      transform: translateY(-6px);
+    }
+    #projects img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      border-bottom: 3px solid #0077ff;
+    }
+    #projects .project:hover img {
+      transform: scale(1.05);
+      border-bottom-color: #ff6600;
+    }
+    #projects .project-info {
+      padding: 20px 20px 26px;
+    }
+    #projects .project-info h3 {
+      margin: 0 0 12px 0;
+      font-size: 1.4rem;
+      color: #0077ff;
+      transition: color 0.3s ease;
+    }
+    #projects .project:hover .project-info h3 {
+      color: #ff6600;
+    }
+    #projects .project-info p {
+      margin: 0;
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    /* Contact */
+    #contact p {
+      font-size: 1.2rem;
+      max-width: 640px;
+      margin: 0 auto 40px auto;
+      text-align: center;
+      color: #222;
+      font-family: Georgia, serif;
+    }
+    #contact .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+    #contact .social-icons a svg {
+      fill: #ff6600;
+      width: 36px;
+      height: 36px;
+      transition: fill 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      cursor: pointer;
+    }
+    #contact .social-icons a:hover svg {
+      fill: #0077ff;
+      transform: scale(1.3);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px 10px;
+      background: #f9f9f9;
+      color: #777;
+      font-size: 0.9rem;
+      font-family: Arial, sans-serif;
+      letter-spacing: 0.06em;
+      margin-top: 40px;
+    }
+
+    /* Back to Top Button */
+    #backToTop {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background-color: #ff6600;
+      border: none;
+      color: white;
+      padding: 14px 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      display: none;
+      box-shadow: 0 8px 20px rgba(255, 102, 0, 0.6);
+      z-index: 1000;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    #backToTop:hover {
+      background-color: #e55a00;
+      box-shadow: 0 10px 30px rgba(229, 90, 0, 0.8);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+      header p.quote {
+        font-size: 1.1rem;
+        margin-bottom: 50px;
+      }
+      #projects .project-info h3 {
+        font-size: 1.25rem;
+      }
+      #projects .project-info p {
+        font-size: 0.95rem;
+      }
+      #skills ul {
+        gap: 14px;
+      }
+      #skills li {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+      }
+      #contact .social-icons {
+        gap: 28px;
+      }
+      #contact .social-icons a svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Drishti Manghnani is <br />Web Developer & Creator</h1>
+    <p class="quote">"Innovative Web Developer. Creative Designer. Empowering ideas with code and craft."</p>
+    <img
+      class="profile-pic"
+      src="pfp.jpg" 
+      alt="Drishti Manghnani Profile Picture"
+    />
+  </header>
+
+  <main>
+
+    <section id="about" aria-label="About Me">
+      <h2>About Me</h2>
+      <p>
+        I am Drishti Manghnani, a passionate web developer skilled in crafting visually appealing and functional websites. Besides web development, I specialize in logo design, thumbnails, professional PowerPoint presentations, content writing, typing, data entry, basic video editing, and public speaking. I am dedicated to delivering quality work and constantly enhancing my skills.
+      </p>
+    </section>
+
+    <section id="skills" aria-label="Skills">
+      <h2>Skills</h2>
+      <ul>
+        <li>Web Development</li>
+        <li>Logo Design</li>
+        <li>Thumbnail Creation</li>
+        <li>Professional PPT Making</li>
+        <li>Content Writing</li>
+        <li>Typing & Data Entry</li>
+        <li>Basic Video Editing</li>
+        <li>Public Speaking</li>
+      </ul>
+    </section>
+
+    <section id="projects" aria-label="Projects">
+      <h2>My Projects</h2>
+      <div class="project-list">
+        <article class="project">
+          <img src="Screenshot (4).png" alt="Project 1 Screenshot" />
+          <div class="project-info">
+            <h3>Website Development Project</h3>
+            <p>Developed a responsive website for a local business to increase their digital presence.</p>
+          </div>
+        </article>
+        <article class="project">
+          <img src="Gemini_Generated_Image_y86k54y86k54y86k.png" alt="Project 2 Screenshot" />
+          <div class="project-info">
+            <h3>Logo & Branding</h3>
+            <p>Created professional logos and branding materials for startups and entrepreneurs.</p>
+          </div>
+        </article>
+        <article class="project">
+          <img src="img.jpg.png" alt="Project 3 Screenshot" />
+          <div class="project-info">
+            <h3>Presentation Design</h3>
+            <p>Designed engaging and professional PowerPoint presentations for business clients.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" aria-label="Contact Me">
+      <h2>Contact Me</h2>
+      <p>
+        I'd love to hear from you! Reach out via email or follow me on Instagram.
+      </p>
+      <div class="social-icons" role="list">
+        <a href="https://instagram.com/dristi_msnghnani" aria-label="Instagram" target="_blank" rel="noopener noreferrer" role="listitem">
+          <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" >
+            <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm5.5-.75a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/>
+          </svg>
+        </a>
+        <a href="mailto:drishtimanghnani@gmail.com" aria-label="Email" role="listitem" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
+          </svg>
+        </a>
+         <a href="https://linkedin.com/in/dristi-msnghnani" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer" role="listitem">
+    <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.94 8.17a1.75 1.75 0 110-3.5 1.75 1.75 0 010 3.5zM5.88 9.5h2.14v10H5.88v-10zM9.8 9.5h2.06v1.31h.03c.29-.54 1.24-1.12 2.56-1.12 2.74 0 3.25 1.8 3.25 4.15v4.66h-2.14v-4.12c0-.99-.04-2.26-1.38-2.26-1.38 0-1.59 1.08-1.59 2.19v4.2H9.8v-10z"/>
+    </svg>
+  </a>
+      </div>
+    </section>
+
+  </main>
+
+  <button id="backToTop" aria-label="Back to top">&#8679;</button>
+
+  <footer>
+    &copy; 2024 Drishti Manghnani. All rights reserved.
+  </footer>
+
+  <script>
+    // Fade in sections when scrolled into view
+    function onEntry(entry) {
+      entry.forEach(change => {
+        if (change.isIntersecting) {
+          change.target.classList.add('visible');
+        }
+      });
+    }
+    const options = { threshold: 0.1 };
+    const observer = new IntersectionObserver(onEntry, options);
+
+    document.querySelectorAll('header, section').forEach((section) => {
+      observer.observe(section);
+    });
+
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.style.display = 'block';
+      } else {
+        backToTopBtn.style.display = 'none';
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
